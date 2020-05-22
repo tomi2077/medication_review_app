@@ -1,20 +1,17 @@
 from marshmallow import fields, Schema
 import datetime
 from . import db
-from .PatientModel import PatientSchema
-from .MedicationModel import MedicationSchema
 
 
 class ReviewModel(db.Model):
 
-    __table__name = 'reviews'
-    id = db.column(db.Integer, primary_key=True)
+    __tablename__ = 'reviews'
+    id = db.Column(db.Integer, primary_key=True)
     review_content = db.Column(db.String(1000), nullable=False)
     patient_id = db.Column(db.Integer, db.ForeignKey('patients.id'), nullable=False)
     medication_id = db.Column(db.Integer, db.ForeignKey('medications.id'), nullable=False)
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
-    medications = db.relationship('MedicationModel', backref='medications', lazy=True)
 
     def __init__(self, data):
 

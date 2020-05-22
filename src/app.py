@@ -11,12 +11,14 @@ def create_app(env_name):
 
     bcrypt.init_app(app)
 
+    db.init_app(app)
+
     @app.route('/', methods=['GET'])
 
     def index():
         """
         example endpoint
         """
-        return 'Congratulations! Your first endpoint is workin'
+        return 'Congratulations! Your first endpoint is working'
 
     return app

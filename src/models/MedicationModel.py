@@ -1,14 +1,14 @@
 from marshmallow import fields, Schema
 import datetime
 from . import db
-from .PatientModel import PatientSchema
 from .ReviewModel import ReviewSchema
 
 
 class MedicationModel(db.Model):
 
-    __table__name = 'medications'
-    id = db.column(db.Integer, primary_key=True)
+    __tablename__ = 'medications'
+
+    id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(1000), nullable=False)
     patient_id = db.Column(db.Integer, db.ForeignKey('patients.id'), nullable=False)
     created_at = db.Column(db.DateTime)
@@ -58,7 +58,7 @@ class MedicationSchema(Schema):
     content = fields.Str(required=True)
     patient_id = fields.Int(required=True)
     created_at = fields.DateTime(dump_only=True)
-
+    reviews = fields.Nested(ReviewSchema, many=True)
 
 
 

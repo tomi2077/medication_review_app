@@ -6,11 +6,12 @@ from .ReviewModel import ReviewSchema
 
 class PatientModel(db.Model):
 
-    __table__name = 'patients'
-    id = db.column(db.Integer, primary_key=True)
-    name = db.column(db.String(128), nullable=False)
-    email = db.column(db.String(128), unique=True, nullable=False)
-    password = db.Column(db.String(128), nullabe=False)
+    __tablename__ = 'patients'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), nullable=False)
+    email = db.Column(db.String(128), unique=True, nullable=False)
+    password = db.Column(db.String(128), nullable=False)
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
     reviews = db.relationship('ReviewModel', backref='reviews', lazy=True)
