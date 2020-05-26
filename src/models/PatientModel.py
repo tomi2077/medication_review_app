@@ -45,7 +45,7 @@ class PatientModel(db.Model):
         return PatientModel.query.all()
 
     @staticmethod
-    def get_one_patient():
+    def get_one_patient(id):
         return PatientModel.query.get(id)
 
     @staticmethod

@@ -2,6 +2,7 @@ from marshmallow import fields, Schema
 import datetime
 from . import db
 from .ReviewModel import ReviewSchema
+from .PatientModel import PatientSchema
 
 
 class MedicationModel(db.Model):
@@ -12,7 +13,7 @@ class MedicationModel(db.Model):
     content = db.Column(db.String(1000), nullable=False)
     patient_id = db.Column(db.Integer, db.ForeignKey('patients.id'), nullable=False)
     created_at = db.Column(db.DateTime)
-    reviews = db.relationship('ReviewModel', backref='reviews', lazy=True)
+    reviews_rel = db.relationship('ReviewModel', backref='medications', lazy=True)
 
     def __init__(self, data):
 
@@ -42,7 +43,7 @@ class MedicationModel(db.Model):
         return MedicationModel.query.all()
 
     @staticmethod
-    def get_one_medication():
+    def get_one_medication(id):
         return MedicationModel.query.get(id)
 
     @staticmethod
@@ -58,7 +59,7 @@ class MedicationSchema(Schema):
     content = fields.Str(required=True)
     patient_id = fields.Int(required=True)
     created_at = fields.DateTime(dump_only=True)
-    reviews = fields.Nested(ReviewSchema, many=True)
+    reviews_rel = fields.Nested(ReviewSchema, many=True)
 
 
 

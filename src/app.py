@@ -2,6 +2,9 @@ from flask import Flask
 from .config import app_config
 from .models import db, bcrypt
 
+from .views.PatientView import patient_api as patient_blueprint
+from .views.MedicationView import medication_api as medication_blueprint
+
 
 def create_app(env_name):
 
@@ -13,8 +16,10 @@ def create_app(env_name):
 
     db.init_app(app)
 
-    @app.route('/', methods=['GET'])
+    app.register_blueprint(patient_blueprint, url_prefix='/api/v1/patients')
+    app.register_blueprint(medication_blueprint, url_prefix='/api/v1/medications')
 
+    @app.route('/', methods=['GET'])
     def index():
         """
         example endpoint

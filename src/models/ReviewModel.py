@@ -42,7 +42,7 @@ class ReviewModel(db.Model):
         return ReviewModel.query.all()
 
     @staticmethod
-    def get_one_review():
+    def get_one_review(id):
         return ReviewModel.query.get(id)
 
     @staticmethod
